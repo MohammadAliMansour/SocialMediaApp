@@ -1,6 +1,6 @@
-package com.example.socialmediaapp;
+package com.example.socialmediaapp.Model;
 
-class ModelChatList {
+public class ModelChatList {
     String id;
     public ModelChatList() {
     }

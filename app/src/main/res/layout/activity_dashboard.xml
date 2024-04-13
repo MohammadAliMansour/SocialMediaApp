@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".DashboardActivity">
+    tools:context=".Avtivty.DashboardActivity">
 
     <FrameLayout
         android:id="@+id/content"

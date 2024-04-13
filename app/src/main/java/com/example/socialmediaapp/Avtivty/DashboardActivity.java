@@ -1,4 +1,4 @@
-package com.example.socialmediaapp;
+package com.example.socialmediaapp.Avtivty;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +8,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.socialmediaapp.Fragment.AddBlogsFragment;
+import com.example.socialmediaapp.Fragment.ChatListFragment;
+import com.example.socialmediaapp.Fragment.HomeFragment;
+import com.example.socialmediaapp.Fragment.ProfileFragment;
+import com.example.socialmediaapp.R;
+import com.example.socialmediaapp.Fragment.UsersFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;

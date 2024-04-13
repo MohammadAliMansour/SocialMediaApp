@@ -1,4 +1,4 @@
-package com.example.socialmediaapp;
+package com.example.socialmediaapp.Adpater;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -12,12 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.socialmediaapp.Model.ModelComment;
+import com.example.socialmediaapp.R;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class AdapterComment extends RecyclerView.Adapter<com.example.socialmediaapp.AdapterComment.MyHolder> {
+public class AdapterComment extends RecyclerView.Adapter<AdapterComment.MyHolder> {
 
     Context context;
     List<ModelComment> list;
