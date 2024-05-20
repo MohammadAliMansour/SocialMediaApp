@@ -1,4 +1,4 @@
-package com.example.socialmediaapp.Fragment;
+package com.example.socialmediaapp.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaapp.Adpater.AdapterUsers;
-import com.example.socialmediaapp.Model.ModelUsers;
+import com.example.socialmediaapp.adpater.AdapterUsers;
+import com.example.socialmediaapp.model.ModelUsers;
 import com.example.socialmediaapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,6 +53,7 @@ public class UsersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclep);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         usersList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         getAllUsers();

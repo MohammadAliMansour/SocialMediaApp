@@ -1,4 +1,4 @@
-package com.example.socialmediaapp.Fragment;
+package com.example.socialmediaapp.fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.socialmediaapp.Avtivty.DashboardActivity;
+import com.example.socialmediaapp.activity.DashboardActivity;
 import com.example.socialmediaapp.R;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

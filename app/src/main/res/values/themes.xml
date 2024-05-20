@@ -5,5 +5,15 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.SocialMediaApp" parent="Base.Theme.SocialMediaApp" />
+    <style name="Theme.SocialMediaApp" parent="Base.Theme.SocialMediaApp" >
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="toolbarStyle">@style/toolbar</item>
+        <item name="actionMenuTextColor">@color/colorPrimary</item>
+<!--        <item name="colorPrimary">@color/white</item>-->
+    </style>
+
+    <style name="toolbar">
+        <item name="titleTextColor">@color/colorPrimary</item>
+    </style>
 </resources>

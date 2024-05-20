@@ -1,4 +1,4 @@
-package com.example.socialmediaapp.Avtivty;
+package com.example.socialmediaapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaapp.Adpater.AdapterUsers;
-import com.example.socialmediaapp.Model.ModelUsers;
 import com.example.socialmediaapp.R;
+import com.example.socialmediaapp.adpater.AdapterUsers;
+import com.example.socialmediaapp.model.ModelUsers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostLikedByActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
     String postId;
     List<ModelUsers> list;
@@ -33,11 +32,11 @@ public class PostLikedByActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_liked_by);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Post Liked By");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+
         firebaseAuth = FirebaseAuth.getInstance();
         actionBar.setSubtitle(firebaseAuth.getCurrentUser().getEmail());
         recyclerView = findViewById(R.id.likerecycle);
@@ -52,7 +51,7 @@ public class PostLikedByActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String hisUid = "" + dataSnapshot1.getRef().getKey();
+                    String hisUid = String.valueOf(dataSnapshot1.getRef().getKey());
                     getUsers(hisUid);
                 }
             }
@@ -87,7 +86,7 @@ public class PostLikedByActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        getOnBackPressedDispatcher().onBackPressed();
         return super.onSupportNavigateUp();
     }
 }

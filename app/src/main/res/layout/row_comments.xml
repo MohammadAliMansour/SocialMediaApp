@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
+    android:layout_margin="3dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorWhite"
-    app:contentPadding="2dp">
+    app:cardBackgroundColor="@color/thirdColor"
+    app:cardCornerRadius="20dp"
+    app:contentPadding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/loadcomment"
             android:text="Ali"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -37,7 +38,7 @@
             android:layout_below="@id/commentname"
             android:layout_toEndOf="@id/loadcomment"
             android:text="Actual Comment"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/commenttime"

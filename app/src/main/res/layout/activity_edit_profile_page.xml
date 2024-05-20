@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:gravity="center|top"
+    android:background="@color/secondaryColor"
     tools:context=".EditProfilePage">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:backgroundTint="@color/thirdColor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Edit Profile Data"
+        android:layout_marginTop="10dp"
+        android:text="@string/edit_profile"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
         android:textSize="26sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setting_profile_image"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginStart="140dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_users" />
+        android:layout_gravity="center"
+        android:src="@drawable/ic_account"
+        android:scaleType="centerCrop"/>
 
 
     <TextView
@@ -30,9 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Update Name"
+        android:text="@string/update_name"
+        android:gravity="center"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <TextView
@@ -40,9 +52,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Change Password "
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/change_password"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

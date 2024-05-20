@@ -30,6 +30,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures{
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -41,6 +45,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -49,4 +55,8 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.circleimageview)
     implementation(libs.glide)
+//    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(libs.firebase.ui.firestore)
+    implementation(libs.firebase.ui.database)
+    implementation(libs.okhttp)
 }

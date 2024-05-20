@@ -86,7 +86,7 @@ public class EditProfilePage extends AppCompatActivity {
             showImagePicDialog();
         });
 
-        editName.setOnClickListener(v -> showNamePhoneUpdate("name"));
+        editName.setOnClickListener(v -> showNameUpdate("name"));
     }
 
     private void loadProfilePicture() {
@@ -254,7 +254,7 @@ public class EditProfilePage extends AppCompatActivity {
     }
 
     // Updating name
-    private void showNamePhoneUpdate(final String key) {
+    private void showNameUpdate(final String key) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update" + key);
 

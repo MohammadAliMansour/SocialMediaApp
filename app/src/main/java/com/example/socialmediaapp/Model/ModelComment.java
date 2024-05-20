@@ -1,4 +1,4 @@
-package com.example.socialmediaapp.Model;
+package com.example.socialmediaapp.model;
 
 public class ModelComment {
 

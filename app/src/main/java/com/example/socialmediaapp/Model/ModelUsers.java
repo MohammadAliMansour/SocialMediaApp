@@ -1,24 +1,20 @@
-package com.example.socialmediaapp.Model;
+package com.example.socialmediaapp.model;
 
 public class ModelUsers {
     String name;
-    String onlineStatus;
-    String typingTo;
     String email;
     String image;
     String uid;
+    String fcmToken;
 
 
 
     public ModelUsers() {
     }
 
-    public ModelUsers(String name, String onlineStatus, String typingTo, String email, String image, String uid) {
+    public ModelUsers(String name, String email, String uid) {
         this.name = name;
-        this.onlineStatus = onlineStatus;
-        this.typingTo = typingTo;
         this.email = email;
-        this.image = image;
         this.uid = uid;
     }
 
@@ -28,14 +24,6 @@ public class ModelUsers {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTypingTo() {
-        return typingTo;
-    }
-
-    public void setTypingTo(String typingTo) {
-        this.typingTo = typingTo;
     }
 
     public String getEmail() {
@@ -60,5 +48,13 @@ public class ModelUsers {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

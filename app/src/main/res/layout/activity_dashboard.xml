@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Avtivty.DashboardActivity">
+    tools:context=".activity.DashboardActivity">
 
     <FrameLayout
         android:id="@+id/content"
@@ -21,8 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:labelVisibilityMode="labeled"
+        android:background="@color/black"
+        app:itemIconTint="@color/colorPrimary"
+        app:labelVisibilityMode="auto"
         app:menu="@menu/menu_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

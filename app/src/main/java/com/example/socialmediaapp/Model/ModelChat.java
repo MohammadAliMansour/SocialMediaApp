@@ -1,32 +1,18 @@
-package com.example.socialmediaapp.Model;
+package com.example.socialmediaapp.model;
 
 public class ModelChat {
-    String receiver;
-    String sender;
-
-
-    String type;
-
-
-    String timestamp;
-
-
-    boolean bool;
-
-    String message;
+    private String message;
+    private String senderId;
+    private String timestamp;
 
     public ModelChat() {
     }
-    public ModelChat(String message, String receiver, String sender, String type, String timestamp, boolean dilihat) {
+
+    public ModelChat(String message, String senderId, String timestamp) {
         this.message = message;
-        this.receiver = receiver;
-        this.sender = sender;
-        this.type = type;
+        this.senderId = senderId;
         this.timestamp = timestamp;
-        this.bool = dilihat;
     }
-
-
 
     public String getMessage() {
         return message;
@@ -36,20 +22,12 @@ public class ModelChat {
         this.message = message;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
     public String getTimestamp() {
@@ -58,21 +36,5 @@ public class ModelChat {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public boolean isBool() {
-        return bool;
-    }
-
-    public void setBool(boolean bool) {
-        this.bool = bool;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }
