@@ -1,7 +1,11 @@
 package com.example.socialmediaapp.model;
 
+import android.text.format.DateFormat;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ModelChatRoom {
     String chatroomId;
@@ -68,6 +72,12 @@ public class ModelChatRoom {
 
     public void setMessages(List<ModelMessage> messages) {
         this.messages = messages;
+    }
+
+    public String getFormattedTime() {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        calendar.setTimeInMillis(Long.parseLong(lastMessageTimestamp));
+        return DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
     }
 
 }

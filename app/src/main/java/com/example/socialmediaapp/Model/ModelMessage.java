@@ -6,9 +6,7 @@ public class ModelMessage {
     private String message;
     private String timestamp;
 
-    public ModelMessage() {
-        // Default constructor required for Firestore
-    }
+    public ModelMessage() {}
 
     public ModelMessage(String messageId, String senderId, String message, String timestamp) {
         this.messageId = messageId;
@@ -17,7 +15,6 @@ public class ModelMessage {
         this.timestamp = timestamp;
     }
 
-    // Getters and setters
     public String getMessageId() {
         return messageId;
     }

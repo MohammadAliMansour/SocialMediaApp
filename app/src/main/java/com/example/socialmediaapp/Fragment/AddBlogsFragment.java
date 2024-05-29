@@ -44,9 +44,7 @@ import java.util.HashMap;
 
 public class AddBlogsFragment extends Fragment {
 
-    public AddBlogsFragment() {
-        // Required empty public constructor
-    }
+    public AddBlogsFragment() {}
 
     FirebaseAuth firebaseAuth;
     EditText title, des;
@@ -63,12 +61,10 @@ public class AddBlogsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_blogs, container, false);
 
         initLayout(view);
 
-        // Retrieving the user data like name ,email and profile pic using query
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         Query query = databaseReference.orderByChild("uid").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -88,7 +84,6 @@ public class AddBlogsFragment extends Fragment {
             }
         });
 
-        // Initialising camera and storage permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES};
         }
@@ -96,29 +91,24 @@ public class AddBlogsFragment extends Fragment {
             storagePermission = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
         }
 
-        // After click on image we will be selecting an image
         image.setOnClickListener(v -> showImagePicDialog());
 
-        // Now we will upload out blog
         upload.setOnClickListener(v -> {
             String title = AddBlogsFragment.this.title.getText().toString().trim();
             String description = des.getText().toString().trim();
 
-            // If empty set error
             if (TextUtils.isEmpty(title)) {
                 AddBlogsFragment.this.title.setError("Title Cant be empty");
                 Toast.makeText(getContext(), "Title can't be left empty", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // If empty set error
             if (TextUtils.isEmpty(description)) {
                 des.setError("Description Cant be empty");
                 Toast.makeText(getContext(), "Description can't be left empty", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // If empty show error
             if (imageuri == null) {
                 Toast.makeText(getContext(), "Select an Image", Toast.LENGTH_LONG).show();
             } else {
@@ -144,8 +134,6 @@ public class AddBlogsFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Pick Image From");
         builder.setItems(options, (dialog, which) -> {
-            // check for the camera and storage permission if
-            // not given the request for permission
             if (which == 0) {
                 if (!checkCameraPermission()) {
                     requestCameraPermission();
@@ -163,13 +151,11 @@ public class AddBlogsFragment extends Fragment {
         builder.create().show();
     }
 
-    // check for storage permission
     private Boolean checkStoragePermission() {
         return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
     }
 
-    // if not given then request for permission after that check if request is given or not
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case CAMERA_REQUEST: {
@@ -177,7 +163,6 @@ public class AddBlogsFragment extends Fragment {
                     boolean camera_accepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                    // if request access given the pick data
                     if (camera_accepted && writeStorageAccepted) {
                         pickFromCamera();
                     } else {
@@ -186,13 +171,11 @@ public class AddBlogsFragment extends Fragment {
                 }
             }
 
-            // function end
             break;
             case STORAGE_REQUEST: {
                 if (grantResults.length > 0) {
                     boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
 
-                    // if request access given the pick data
                     if (writeStorageAccepted) {
                         pickFromGallery();
                     } else {
@@ -204,34 +187,27 @@ public class AddBlogsFragment extends Fragment {
         }
     }
 
-    // request for permission to write data into storage
     private void requestStoragePermission() {
         requestPermissions(storagePermission, STORAGE_REQUEST);
     }
 
-    // check camera permission to click picture using camera
     private Boolean checkCameraPermission() {
         boolean result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 
-    // request for permission to click photo using camera in app
     private void requestCameraPermission() {
         requestPermissions(cameraPermission, CAMERA_REQUEST);
     }
 
-    // if access is given then pick image from camera and then put
-    // the imageuri in intent extra and pass to startactivityforresult
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    // Handle the result here, if needed
                     imageuri = result.getData().getData();
                     image.setImageURI(imageuri);
                 } else {
-                    // Handle case when the user cancels the camera operation
                     Toast.makeText(getContext(), "Camera operation cancelled", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -246,18 +222,13 @@ public class AddBlogsFragment extends Fragment {
         cameraLauncher.launch(cameraIntent);
     }
 
-    // if access is given then pick image from gallery
-
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
             result -> {
                 if (result != null) {
-                    // Handle the result here, if needed
-                    // For example, you can use the result Uri directly
                     imageuri = result;
                     image.setImageURI(imageuri);
                 } else {
-                    // Handle case when the user cancels the gallery operation
                     Toast.makeText(getContext(), "Gallery operation cancelled", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -268,20 +239,14 @@ public class AddBlogsFragment extends Fragment {
         galleryLauncher.launch("image/*");
     }
 
-
-
-    // Upload the value of blog data into firebase
     private void uploadData(final String title, final String description, final Uri uri) {
-        // show the progress dialog box
         pd.setMessage("Publishing Post");
         pd.show();
         final String timestamp = String.valueOf(System.currentTimeMillis());
         String filePathName = "Posts/" + "post" + timestamp;
 
-        // initialising the storage reference for updating the data
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference().child(filePathName);
         storageReference1.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-            // getting the url of image uploaded
             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
 
             uriTask.addOnSuccessListener(downloadUri -> {
@@ -310,8 +275,8 @@ public class AddBlogsFragment extends Fragment {
                             startActivity(new Intent(getContext(), DashboardActivity.class));
                             getActivity().finish();
                         }).addOnFailureListener(e -> {
-                           pd.dismiss();
-                           Toast.makeText(getContext(),"Failed", Toast.LENGTH_LONG).show();
+                            pd.dismiss();
+                            Toast.makeText(getContext(),"Failed", Toast.LENGTH_LONG).show();
                         });
             }).addOnFailureListener(e -> {
                 pd.dismiss();

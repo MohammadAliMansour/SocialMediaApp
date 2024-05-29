@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Social Media App</string>
+    <string name="app_name">Kick Connect</string>
     <string name="name">Name</string>
     <string name="your_name">Your Name…</string>
     <string name="email">Email</string>
@@ -19,8 +19,8 @@
     <string name="edit_profile">Edit Profile Data</string>
     <string name="update_name">Update Name</string>
     <string name="change_password">Change Password</string>
-    <string name="liked">Liked</string>
-    <string name="like">Like</string>
+    <string name="liked">Scored</string>
+    <string name="like">Score</string>
     <string name="share">Share</string>
     <string name="update_password">Update Password</string>
     <string name="old_password">Old Password</string>
@@ -38,4 +38,6 @@
     <string name="real_madrid">Real Madrid</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="kick">Kick</string>
+    <string name="change_wallpaper">Change Wallpaper</string>
 </resources>

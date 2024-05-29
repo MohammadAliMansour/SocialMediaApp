@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.SocialMediaApp" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your light theme here. -->
@@ -16,4 +16,6 @@
     <style name="toolbar">
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
+
+
 </resources>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <data>
+       <import type="android.text.SpannableString"/>
+       <import type="android.text.Spanned"/>
+       <import type="android.text.style.ImageSpan"/>
+       <variable
+           name="viewModel"
+           type="com.example.socialmediaapp.viewmodel.LandingScreenViewModel" />
+   </data>
+
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.kickConnectSpannable}"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="-50dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/football_logo" />
+
+                <TextView
+                    android:id="@+id/tvSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Post Your\nFootball Life"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="-50dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="300dp"
+                        android:src="@drawable/ronaldo_background"
+                        android:scaleType="centerCrop"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="43dp"
+                        android:paddingBottom="5dp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="350dp"
+                        android:src="@drawable/ronaldo"
+                        android:layout_centerInParent="true"
+                        android:paddingEnd="40dp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvSubTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="      Share\nThe Moment"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="30dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="300dp"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="43dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/second_player_background" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="350dp"
+                        android:src="@drawable/second_player"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="25dp"
+                        android:scaleType="fitXY"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvSubTitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always\n Updated"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="30dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="250dp"
+                        android:layout_height="300dp"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="43dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/trophy_background" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="250dp"
+                        android:layout_below="@+id/imageView"
+                        android:layout_marginTop="-230dp"
+                        android:src="@drawable/trophy" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/bayern_t"
+                        android:layout_marginTop="90dp"
+                        android:layout_marginStart="30dp"/>
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/barcelona_t"
+                        android:layout_marginTop="180dp"
+                        android:layout_marginStart="245dp"
+                        android:rotation="30"/>
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btnKick"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/kick_background"
+                    android:text="@string/kick"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="50dp"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/btnChangeWallpaper"
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/kick_background"
+                    android:text="@string/change_wallpaper"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

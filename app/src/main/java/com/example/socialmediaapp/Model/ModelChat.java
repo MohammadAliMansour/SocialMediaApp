@@ -37,4 +37,5 @@ public class ModelChat {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
 }

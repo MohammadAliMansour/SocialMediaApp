@@ -49,23 +49,17 @@ public class ProfileFragment extends Fragment {
     String uid;
 
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    public ProfileFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // creating a view to inflate the layout
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        // getting current user data
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         databaseReference = firebaseDatabase.getReference("Users");
 
-        // Initialising the text view and imageview
         avatar = view.findViewById(R.id.avatar);
         name = view.findViewById(R.id.nameTextView);
         email = view.findViewById(R.id.emailTextView);
@@ -84,11 +78,9 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    // Retrieving Data from firebase
                     String name1 = (String) dataSnapshot1.child("name").getValue();
                     String email1 = (String) dataSnapshot1.child("email").getValue();
                     String image = (String) dataSnapshot1.child("image").getValue();
-                    // setting data to our text view
                     name.setText(name1);
                     email.setText(email1);
                     try {

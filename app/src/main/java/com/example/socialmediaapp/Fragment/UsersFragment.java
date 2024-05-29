@@ -31,9 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class UsersFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -41,14 +39,10 @@ public class UsersFragment extends Fragment {
     List<ModelUsers> usersList;
     FirebaseAuth firebaseAuth;
 
-    public UsersFragment() {
-        // Required empty public constructor
-    }
+    public UsersFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
         recyclerView = view.findViewById(R.id.recyclep);
         recyclerView.setHasFixedSize(true);

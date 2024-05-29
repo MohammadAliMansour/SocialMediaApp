@@ -2,8 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="post"
-            type="com.example.socialmediaapp.model.ModelPost" />
+        name="post"
+        type="com.example.socialmediaapp.model.ModelPost" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -59,7 +60,7 @@
                     android:id="@+id/time_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{post.ptime}"
+                    android:text="@{post.getFormattedTime()}"
                     android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>
@@ -115,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{post.plike}"
+                android:text="@{post.plike + ` likes`}"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
@@ -123,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{post.pcomments}"
+                android:text="@{post.pcomments + ` comments`}"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>

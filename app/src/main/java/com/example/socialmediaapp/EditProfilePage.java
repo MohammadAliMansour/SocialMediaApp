@@ -185,29 +185,24 @@ public class EditProfilePage extends AppCompatActivity {
         });
     }
 
-    // checking storage permission ,if given then we can add something in our storage
     private Boolean checkStoragePermission() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
-    // requesting for storage permission
     private void requestStoragePermission() {
         requestPermissions(storagePermission, STORAGE_REQUEST);
     }
 
-    // checking camera permission ,if given then we can click image using our camera
     private Boolean checkCameraPermission() {
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 
-    // requesting for camera permission if not given
     private void requestCameraPermission() {
         requestPermissions(cameraPermission, CAMERA_REQUEST);
     }
 
-    // We will show an alert box where we will write our old and new password
     private void showPasswordChangeDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_update_password, null);
         final EditText oldPass = view.findViewById(R.id.oldpasslog);
@@ -233,8 +228,6 @@ public class EditProfilePage extends AppCompatActivity {
         });
     }
 
-    // Now we will check that if old password was authenticated
-    // correctly then we will update the new password
     private void updatePassword(String oldP, final String newp) {
         pd.show();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -253,12 +246,10 @@ public class EditProfilePage extends AppCompatActivity {
                 });
     }
 
-    // Updating name
     private void showNameUpdate(final String key) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update" + key);
 
-        // creating a layout to write the new name
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(10, 10, 10, 10);
@@ -272,13 +263,11 @@ public class EditProfilePage extends AppCompatActivity {
             if (!TextUtils.isEmpty(value)) {
                 pd.show();
 
-                // Here we are updating the new name
                 HashMap<String, Object> result = new HashMap<>();
                 result.put(key, value);
                 databaseReference.child(firebaseUser.getUid()).updateChildren(result).addOnSuccessListener(aVoid -> {
                     pd.dismiss();
 
-                    // after updated we will show updated
                     Toast.makeText(EditProfilePage.this, " updated ", Toast.LENGTH_LONG).show();
                 }).addOnFailureListener(e -> {
                     pd.dismiss();
@@ -311,14 +300,11 @@ public class EditProfilePage extends AppCompatActivity {
         builder.create().show();
     }
 
-    // Here we are showing image pic dialog where we will select
-    // and image either from camera or gallery
     private void showImagePicDialog() {
         String[] options = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick Image From");
         builder.setItems(options, (dialog, which) -> {
-            // if access is not given then we will request for permission
             if (which == 0) {
                 if (!checkCameraPermission()) {
                     requestCameraPermission();
@@ -367,16 +353,13 @@ public class EditProfilePage extends AppCompatActivity {
         }
     }
 
-    // Here we will click a photo and then go to startActivityForResult for updating data
 
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    // Handle the result here, if needed
                     uploadProfileCoverPhoto(imageuri);
                 } else {
-                    // Handle case when the user cancels the camera operation
                     Toast.makeText(this, "Camera operation cancelled", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -391,18 +374,14 @@ public class EditProfilePage extends AppCompatActivity {
         cameraLauncher.launch(cameraIntent);
     }
 
-    // We will select an image from gallery
 
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
             result -> {
                 if (result != null) {
-                    // Handle the result here, if needed
-                    // For example, you can use the result Uri directly
                     imageuri = result;
                     uploadProfileCoverPhoto(imageuri);
                 } else {
-                    // Handle case when the user cancels the gallery operation
                     Toast.makeText(this, "Gallery operation cancelled", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -413,11 +392,9 @@ public class EditProfilePage extends AppCompatActivity {
         galleryLauncher.launch("image/*");
     }
 
-    // We will upload the image from here.
     private void uploadProfileCoverPhoto(final Uri uri) {
         pd.show();
 
-        // We are taking the filepath as storagePath + firebaseAuth.getUid()+".png"
         String filePathName = storagePath + profileOrCoverPhoto + "_" + firebaseUser.getUid();
         StorageReference storageReference1 = storageReference.child(filePathName);
         storageReference1.putFile(uri).addOnSuccessListener(taskSnapshot -> {

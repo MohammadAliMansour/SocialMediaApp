@@ -9,4 +9,8 @@
         <item name="android:colorPrimaryDark">@color/colorPrimary</item>
     </style>
 
+    <style name="Theme_SocialMediaApp_NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
 </resources>

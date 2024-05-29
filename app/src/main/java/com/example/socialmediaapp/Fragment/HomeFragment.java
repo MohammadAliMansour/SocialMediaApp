@@ -39,9 +39,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
@@ -50,13 +47,10 @@ public class HomeFragment extends Fragment {
     AdapterPosts adapterPosts;
     private SharedPreferencesHelper sharedPreferencesHelper;
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    public HomeFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
         firebaseAuth = FirebaseAuth.getInstance();
@@ -92,7 +86,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // Search post code
     private void searchPosts(final String search) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -158,7 +151,6 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    // Logout functionality
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -186,7 +178,6 @@ public class HomeFragment extends Fragment {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        // Restore saved selection if available
         String savedSelection = sharedPreferencesHelper.getSelectedOption();
         if (savedSelection != null) {
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
@@ -207,10 +198,8 @@ public class HomeFragment extends Fragment {
                 RadioButton selectedRadioButton = view.findViewById(selectedId);
                 String selectedText = selectedRadioButton.getText().toString();
 
-                // Save the selection to SharedPreferences using SharedPreferencesHelper
                 sharedPreferencesHelper.saveSelectedOption(selectedText);
 
-                // Display the selection and dismiss the dialog
                 Toast.makeText(getContext(), "Selected: " + selectedText, Toast.LENGTH_SHORT).show();
                 loadPosts();
                 dialog.dismiss();

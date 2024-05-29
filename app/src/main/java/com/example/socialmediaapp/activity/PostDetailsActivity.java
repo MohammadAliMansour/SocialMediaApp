@@ -44,6 +44,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initLayout();
         myemail = FirebaseUtil.currentUserEmail();
+        actionBar.setSubtitle(myemail);
         myuid = FirebaseUtil.currentUserId();
         loadPostInfo();
         loadUserInfo();
@@ -140,10 +141,10 @@ public class PostDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.child(postId).hasChild(myuid)) {
-                    binding.post.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked, 0, 0, 0);
+                    binding.post.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.bayern_munchen, 0, 0, 0);
                     binding.post.like.setText(R.string.liked);
                 } else {
-                    binding.post.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
+                    binding.post.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.soccer_ball_retina, 0, 0, 0);
                     binding.post.like.setText(R.string.like);
                 }
             }

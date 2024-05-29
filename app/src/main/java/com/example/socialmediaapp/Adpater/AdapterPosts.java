@@ -47,11 +47,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     public AdapterPosts(Context context, List<ModelPost> modelPosts) {
         AdapterPosts.context = context;
         this.modelPosts = modelPosts;
-//        myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myuid = FirebaseUtil.currentUserId();
-//        likeReference = FirebaseDatabase.getInstance().getReference().child("Likes");
         likeReference = FirebaseUtil.getLikesReference();
-//        postReference = FirebaseDatabase.getInstance().getReference().child("Posts");
         postReference = FirebaseUtil.getPostsReference();
     }
 
@@ -67,91 +64,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         ModelPost post = modelPosts.get(position);
         holder.bind(post);
     }
-
-    /*
-    @NonNull
-    @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_posts, parent, false);
-        return new MyHolder(view);
-    }
-    @Override
-    public void onBindViewHolder(@NonNull final MyHolder holder, final int position) {
-        final String uid = modelPosts.get(position).getUid();
-        String name = modelPosts.get(position).getUname();
-        final String title = modelPosts.get(position).getTitle();
-        final String description = modelPosts.get(position).getDescription();
-        final String ptime = modelPosts.get(position).getPtime();
-        String dp = modelPosts.get(position).getUdp();
-        String plike = modelPosts.get(position).getPlike();
-        final String image = modelPosts.get(position).getUimage();
-//        String email = modelPosts.get(position).getUemail();
-        String comm = modelPosts.get(position).getPcomments();
-        final String pid = modelPosts.get(position).getPtime();
-        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-        calendar.setTimeInMillis(Long.parseLong(ptime));
-        String timeDate = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
-        holder.name.setText(name);
-        holder.title.setText(title);
-        holder.description.setText(description);
-        holder.time.setText(timeDate);
-        holder.like.setText(plike + " Likes");
-        holder.comments.setText(comm + " Comments");
-        setLikes(holder, ptime);
-        try {
-            Glide.with(context).load(dp).into(holder.picture);
-        } catch (Exception ignored) {
-
-        }
-
-        holder.image.setVisibility(View.VISIBLE);
-        try {
-            Glide.with(context).load(image).into(holder.image);
-        } catch (Exception ignored) {
-
-        }
-
-        holder.like.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), PostLikedByActivity.class);
-            intent.putExtra("pid", pid);
-            holder.itemView.getContext().startActivity(intent);
-        });
-        holder.likebtn.setOnClickListener(v -> {
-            final int plike1 = Integer.parseInt(modelPosts.get(position).getPlike());
-            mprocesslike = true;
-            final String postid = modelPosts.get(position).getPtime();
-            likeReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (mprocesslike) {
-                        if (dataSnapshot.child(postid).hasChild(myuid)) {
-                            postReference.child(postid).child("plike").setValue("" + (plike1 - 1));
-                            likeReference.child(postid).child(myuid).removeValue();
-                        } else {
-                            postReference.child(postid).child("plike").setValue("" + (plike1 + 1));
-                            likeReference.child(postid).child(myuid).setValue("Liked");
-                        }
-                        mprocesslike = false;
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        });
-        if (!uid.equals(myuid)){
-            holder.more.setVisibility(View.GONE);
-        }
-        holder.more.setOnClickListener(v -> showMoreOptions(holder.more, uid, myuid, ptime, image));
-        holder.comment.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PostDetailsActivity.class);
-            intent.putExtra("pid", ptime);
-            context.startActivity(intent);
-        });
-    }
-*/
 
     private static void showMoreOptions(ImageButton more, String uid, String myuid, final String pid, final String image) {
         PopupMenu popupMenu = new PopupMenu(context, more, Gravity.END);
@@ -227,27 +139,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     static class MyHolder extends RecyclerView.ViewHolder {
         boolean mprocesslike = false;
         private RowPostsBinding binding;
-//        ImageView picture, image;
-//        TextView name, time, title, description, like, comments;
-//        ImageButton more;
-//        Button likebtn, comment;
-//        LinearLayout profile;
-
-//        public MyHolder(@NonNull View itemView) {
-//            super(itemView);
-//            picture = itemView.findViewById(R.id.profile_picture_post);
-//            image = itemView.findViewById(R.id.pimagetvco);
-//            name = itemView.findViewById(R.id.username_post);
-//            time = itemView.findViewById(R.id.time_post);
-//            more = itemView.findViewById(R.id.more_btn_post);
-//            title = itemView.findViewById(R.id.post_title);
-//            description = itemView.findViewById(R.id.post_description);
-//            like = itemView.findViewById(R.id.post_likes_number);
-//            comments = itemView.findViewById(R.id.post_comments_number);
-//            likebtn = itemView.findViewById(R.id.like);
-//            comment = itemView.findViewById(R.id.comment);
-//            profile = itemView.findViewById(R.id.profile_layout);
-//        }
 
         public MyHolder(@NonNull RowPostsBinding binding){
             super(binding.getRoot());
@@ -306,11 +197,15 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
             setLikes(this, binding.getPost().getPtime());
 
-            try {
-                Glide.with(context).load(post.getUdp()).into(binding.profilePicturePost);
-            } catch (Exception ignored) {
 
-            }
+            FirebaseUtil.getCurrentProfilePicStorageRef(post.getUid()).thenAccept(profilePic -> {
+                try {
+                    Glide.with(context).load(profilePic).into(binding.profilePicturePost);
+                } catch (Exception ignored) {
+                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
             binding.pimagetvco.setVisibility(View.VISIBLE);
             try {

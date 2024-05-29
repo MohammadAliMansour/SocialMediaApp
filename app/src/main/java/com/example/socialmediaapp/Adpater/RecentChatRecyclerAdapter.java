@@ -2,16 +2,17 @@ package com.example.socialmediaapp.adpater;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.socialmediaapp.R;
 import com.example.socialmediaapp.activity.ChatActivity;
 import com.example.socialmediaapp.model.ModelChatRoom;
@@ -39,20 +40,22 @@ public class RecentChatRecyclerAdapter extends FirebaseRecyclerAdapter<ModelChat
 
                     ModelUsers otherUserModel = task.getResult().getValue(ModelUsers.class);
 
-                    FirebaseUtil.getOtherProfilePicStorageRef(otherUserModel.getUid()).getDownloadUrl()
-                            .addOnCompleteListener(t -> {
-                                if (t.isSuccessful()) {
-                                    Uri uri = t.getResult();
-                                    AndroidUtil.setProfilePic(context, uri, holder.profilePic);
-                                }
-                            });
+
+
+                    FirebaseUtil.getOtherProfilePicStorageRef(otherUserModel.getUid()).thenAccept(profilePic -> {
+                        try {
+                            Glide.with(context).load(profilePic).into(holder.profilePic);
+                        } catch (Exception ignored) {
+                            Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     holder.usernameText.setText(otherUserModel.getName());
                     if (lastMessageSentByMe)
                         holder.lastMessageText.setText("You : " + model.getLastMessage());
                     else
                         holder.lastMessageText.setText(model.getLastMessage());
-                    holder.lastMessageTime.setText(model.getLastMessageTimestamp());
+                    holder.lastMessageTime.setText(model.getFormattedTime());
 
                     holder.itemView.setOnClickListener(v -> {
                         //navigate to chat activity

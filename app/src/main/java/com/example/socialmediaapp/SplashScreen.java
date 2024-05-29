@@ -23,12 +23,12 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        ImageView ball = findViewById(R.id.ball); // get your imageview
+        ImageView ball = findViewById(R.id.ball);
         playMusic();
 
-        Animation bounce = AnimationUtils.loadAnimation(getBaseContext(), R.anim.bounce); // load the animation from the resource
+        Animation bounce = AnimationUtils.loadAnimation(getBaseContext(), R.anim.bounce);
 
-        ball.startAnimation(bounce); // animate the imageview
+        ball.startAnimation(bounce);
         new Handler().postDelayed(() -> {
             stopMusic();
             if (!FirebaseUtil.isLoggedIn()) {

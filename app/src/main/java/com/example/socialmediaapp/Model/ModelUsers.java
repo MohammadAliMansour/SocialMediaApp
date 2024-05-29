@@ -1,15 +1,21 @@
 package com.example.socialmediaapp.model;
 
+import android.graphics.Bitmap;
+
 public class ModelUsers {
     String name;
     String email;
     String image;
     String uid;
     String fcmToken;
-
+    private Bitmap wallpaper;
 
 
     public ModelUsers() {
+    }
+
+    public ModelUsers(String email) {
+        this.email = email;
     }
 
     public ModelUsers(String name, String email, String uid) {
@@ -56,5 +62,13 @@ public class ModelUsers {
 
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public Bitmap getWallpaper() {
+        return wallpaper;
+    }
+
+    public void setWallpaper(Bitmap wallpaper) {
+        this.wallpaper = wallpaper;
     }
 }

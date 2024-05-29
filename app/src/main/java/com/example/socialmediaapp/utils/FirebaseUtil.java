@@ -1,14 +1,19 @@
 package com.example.socialmediaapp.utils;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class FirebaseUtil {
     public static String currentUserId(){
@@ -79,22 +84,65 @@ public class FirebaseUtil {
         }
     }
 
-//    public static String timestampToString(Timestamp timestamp){
-//        return new SimpleDateFormat("HH:MM").format(timestamp.toDate());
-//    }
 
     public static void logout(){
         FirebaseAuth.getInstance().signOut();
     }
 
-    public static StorageReference  getCurrentProfilePicStorageRef(){
-        return FirebaseStorage.getInstance().getReference().child("Users_Profile_Cover_image")
-                .child(FirebaseUtil.currentUserId());
+    public static CompletableFuture<String> getCurrentProfilePicStorageRef(String id){
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        Query query = databaseReference.orderByChild("uid").equalTo(id);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String profilePic = "";
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    profilePic = ds.child("image").getValue(String.class);
+                    if (profilePic != null) {
+                        future.complete(profilePic);
+                        return;
+                    }
+                }
+                future.complete(profilePic);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                future.completeExceptionally(databaseError.toException());
+            }
+        });
+        return future;
     }
 
-    public static StorageReference  getOtherProfilePicStorageRef(String otherUserId){
-        return FirebaseStorage.getInstance().getReference().child("Users_Profile_Cover_image")
-                .child(otherUserId);
+    public static CompletableFuture<String> getOtherProfilePicStorageRef(String otherUserId){
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        Query query = databaseReference.orderByChild("uid").equalTo(otherUserId);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String profilePic = "";
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    profilePic = ds.child("image").getValue(String.class);
+                    if (profilePic != null) {
+                        future.complete(profilePic);
+                        return;
+                    }
+                }
+                future.complete(profilePic);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                future.completeExceptionally(databaseError.toException());
+            }
+        });
+        return future;
     }
 
 

@@ -1,5 +1,10 @@
 package com.example.socialmediaapp.model;
 
+import android.text.format.DateFormat;
+
+import java.util.Calendar;
+import java.util.Locale;
+
 public class ModelPost {
     String description;
     String ptime, pcomments;
@@ -114,5 +119,11 @@ public class ModelPost {
 
     public void setPcomments(String pcomments) {
         this.pcomments = pcomments;
+    }
+
+    public String getFormattedTime() {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        calendar.setTimeInMillis(Long.parseLong(ptime));
+        return DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
     }
 }

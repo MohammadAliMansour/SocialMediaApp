@@ -34,6 +34,7 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
 }
 
 dependencies {
@@ -59,4 +60,6 @@ dependencies {
     implementation(libs.firebase.ui.firestore)
     implementation(libs.firebase.ui.database)
     implementation(libs.okhttp)
+    implementation(libs.activity.v131)
+    implementation(libs.fragment)
 }
